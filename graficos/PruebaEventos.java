@@ -1,8 +1,10 @@
 package graficos;
+
 import java.awt.*;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 import java.awt.event.*;
+
 import java.util.Collections;
 
 public class PruebaEventos {
@@ -14,40 +16,43 @@ public class PruebaEventos {
     }
 }
 
-class MarcoBotones extends JFrame{
-    public MarcoBotones(){
+class MarcoBotones extends JFrame {
+    public MarcoBotones() {
         setTitle("Botones y Eventos");
-        setBounds(700,300,500,300);
+        setBounds(700, 300, 500, 300);
         LaminaBotones milamina = new LaminaBotones();
         add(milamina);
     }
 }
 
-class LaminaBotones extends JPanel implements ActionListener {
+class LaminaBotones extends JPanel {
 
     JButton botonAzul = new JButton("Azul");
     JButton botonAmarillo = new JButton("Amarillo");
     JButton botonRojo = new JButton("Rojo");
-    public LaminaBotones(){
+
+    public LaminaBotones() {
         add(botonAzul);
         add(botonAmarillo);
         add(botonRojo);
+        ColorFondo Amarillo = new ColorFondo(Color.yellow);
+        ColorFondo Azul = new ColorFondo(Color.blue);
+        ColorFondo Rojo = new ColorFondo(Color.red);
 
-        botonAzul.addActionListener(this);
-        botonAmarillo.addActionListener(this);
-        botonRojo.addActionListener(this);
+        botonAzul.addActionListener(Azul);
+        botonAmarillo.addActionListener(Amarillo);
+        botonRojo.addActionListener(Rojo);
     }
-    public void actionPerformed(ActionEvent e){
 
-        Object botonPulsado = e.getSource();
-        if(botonPulsado == botonAzul){
-            setBackground(Color.blue);
+    private class ColorFondo implements ActionListener {
+        public ColorFondo(Color c) {
+            colorDeFondo = c;
         }
-        else if(botonPulsado == botonAmarillo){
-            setBackground(Color.yellow);
+
+        public void actionPerformed(ActionEvent e) {
+            setBackground(colorDeFondo);
         }
-        else {
-            setBackground(Color.red);
-        }
+
+        private Color colorDeFondo;
     }
 }
